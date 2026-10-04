@@ -13,7 +13,7 @@ encodes them. Everything is verified at the compiled-output level.
 Its scope is authentication only — signup, login, and token verification. It is
 **not** authorization: no permission checks, no route guards, not RBAC. Keep that
 boundary when adding to it, and keep the negative stated in `README.md` and
-`llms.txt` (xanots/sdk#242).
+`llms.txt`.
 
 ## Project policy
 
@@ -57,10 +57,9 @@ Run `npm run typecheck && npm run lint && npm test` before committing.
   the port's fidelity is the point, and every documented deviation is called out
   in the deviating module's header comment. The exception is a template default
   that leaks a credential: fidelity does not extend to shipping one. Two are
-  overridden today, both from
-  [xanots/sdk#10](https://github.com/xanots/sdk/issues/10) — request history
-  defaults `false` on `authenticationGroup` (it captures the request body, i.e.
-  the plaintext password and the minted token), and `event_log.metadata` records
+  overridden today — request history defaults `false` on `authenticationGroup`
+  (it captures the request body, i.e. the plaintext password and the minted
+  token), and `event_log.metadata` records
   the `PUBLIC_USER_FIELDS` projection rather than the whole user row (which on
   `auth/login` carries the password hash). A future deviation on those grounds
   needs the same treatment: the header comment, an assertion that names the
@@ -239,7 +238,7 @@ Lockstep with the peer. For each SDK bump:
 
 ### Release notes
 
-Start from [.github/RELEASE_TEMPLATE.md](https://github.com/xanots/auth/blob/main/.github/RELEASE_TEMPLATE.md) — it
+Start from [.github/RELEASE_TEMPLATE.md](https://github.com/xano-sdk/auth/blob/main/.github/RELEASE_TEMPLATE.md) — it
 carries both the shape and the constraints the Slack announcement imposes, and
 its guidance lives in HTML comments that are stripped before Slack sees them, so
 it can stay in the draft while you write.
@@ -261,7 +260,7 @@ runs `.github/scripts/test_slack_release_message.py` in the same job that posts 
 a malformed payload fails the workflow rather than reaching Slack. That suite
 renders `RELEASE_TEMPLATE.md` through the real builder, so a change to either
 file has to keep the other true. Both the builder and that test are kept
-identical to `xanots/sdk`'s, modulo the repo and package names; port fixes
+identical to `xano-sdk/sdk-dev`'s, modulo the repo and package names; port fixes
 between the two rather than letting them diverge. Check a draft locally first:
 
 ```bash

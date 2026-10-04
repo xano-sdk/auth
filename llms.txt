@@ -171,8 +171,7 @@ needs `eventLogTable`). Never register a def twice.
   mutate `authenticationGroup.history` — it is only needed on the cherry-pick
   path, and a value disagreeing with the `registerAuth` call is an error.
 - **This is a close port of Xano's quick-start template**; its quirks are
-  preserved on purpose, except the two credential leaks fixed in
-  [xanots/sdk#10](https://github.com/xanots/sdk/issues/10) (request history
+  preserved on purpose, except two credential leaks it fixes (request history
   above, and `event_log.metadata` below). Notably:
   - `event_log.metadata` records a **redacted** user — the `PUBLIC_USER_FIELDS`
     projection, no password hash. (The template passed the whole row; on
