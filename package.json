@@ -21,11 +21,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xanots/auth.git"
+    "url": "git+https://github.com/xano-sdk/auth.git"
   },
-  "homepage": "https://github.com/xanots/auth#readme",
+  "homepage": "https://github.com/xano-sdk/auth#readme",
   "bugs": {
-    "url": "https://github.com/xanots/auth/issues"
+    "url": "https://github.com/xano-sdk/auth/issues"
   },
   "sideEffects": false,
   "xanosdk": {
