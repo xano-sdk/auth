@@ -1,0 +1,198 @@
+# @xano-sdk/auth
+
+> A [Xano SDK](https://www.npmjs.com/package/@xano/sdk) package implementing
+> Xano's quick-start authentication (`auth/signup`, `auth/login`, `auth/me`, plus
+> the `user`, `account`, and `event_log` tables and an event-log function),
+> recreated as typed Xano SDK defs you register into a workspace and version
+> behind npm. It is also the **reference Xano SDK extension package**.
+> It is **authentication, not authorization**: it ships no permission checks
+> and no route guards, so it is not the RBAC answer.
+
+A Xano SDK extension package exports plain, typed def objects (the factories
+`table()`, `query()`, `defineFunction()`, `apiGroup()` are pure identity
+functions). The *consumer's* `Xano` instance does all registration and encoding
+via `export()`. This package pins no guids, and no canonical unless you pass one
+to `registerAuth` — otherwise identity comes from the consuming project's
+`xano.lock`, or falls back to `md5("<kind>:<name>")`.
+
+## Install
+
+```bash
+npm install @xano-sdk/auth @xano/sdk
+```
+
+`@xano/sdk` is a `>=1.0.0 <2.0.0` peer dependency — install the current stable
+release. Built and tested against 1.0.0. The golden-bundle test in this package
+is the peer-drift tripwire: if an SDK upgrade changes encoding, it fails here
+before consumers are affected (for the installed version — the rest of the range
+is declared, not CI-verified).
+
+The floor is the highest of three requirements: the golden bundle, which the
+committed fixture matches from the floor up; the `guard.role` the role-check
+guidance below relies on; and the `db.get` miss-to-null that `auth/me`'s derived
+response type needs. The ceiling is the SDK's next major, since any major may
+change what the defs encode to. Below the floor is unsupported, and a
+golden-bundle failure anywhere else is real drift.
+
+## Quickstart
+
+`npx xanosdk init <dir> --marketplace @xano-sdk/auth` scaffolds a project with the
+registration below already in `xano/index.ts`. In an existing project, `npx xanosdk
+marketplace install @xano-sdk/auth` installs the package and prints the registration
+lines; add them by hand:
+
+```ts
+// xano/index.ts
+import { workspace } from "@xano/sdk";
+import { registerAuth } from "@xano-sdk/auth";
+
+// Pin `canonical` to make getPath() resolve client-side with no lock file;
+// omit the options object to leave the canonical to the consumer's xano.lock.
+export default registerAuth(workspace("my-app"), { canonical: "authn" });
+```
+
+```bash
+npx xanosdk deploy                                 # → disposable backend + URL (after `npx xanosdk login`)
+npx xanosdk export xano/index.ts -o bundle.json    # → importable workspace bundle
+```
+
+## Exports
+
+- `registerAuth(xano, opts?)` — one-call install of the full set; returns the
+  instance for chaining. Idempotency-guarded (throws on a second call per
+  instance). `opts.canonical` pins the Authentication group's URL segment (see
+  the getPath note below); omit it to leave identity to the consumer's lock.
+  `opts.history` sets the group's request-history capture and **defaults to
+  `false`** (see the constraint below); pass `true`, a positive capture depth,
+  or `"all"` to opt in.
+- Tables: `userTable` (auth table), `accountTable`, `eventLogTable`
+- Function: `createEventLogFn`
+- API: `authenticationGroup`, `signupQuery`, `loginQuery`, `meQuery`
+- Types (erase at compile time — `import type` costs no bundle bytes):
+  `User`, `PublicUser`, `Account`, `EventLog`, `AuthTokenResponse`,
+  `RegisterAuthOptions`
+- `PUBLIC_USER_FIELDS` — the runtime array `auth/me` selects; `PublicUser` is
+  `Pick<User, typeof PUBLIC_USER_FIELDS[number]>`, so the two cannot drift.
+
+## Calling the endpoints from a typed client
+
+Every query carries its own route and payload types, so a frontend reuses the
+def instead of re-typing URLs and bodies. Request types are derived; all three
+responses are fully resolved — no `unknown` — `me` by derivation, `signup` and
+`login` by a hand-declared `responseShape`:
+
+```ts
+// Evaluating the module that calls registerAuth is what pins the canonical;
+// without it the bare getPath() below throws. Or use getPath({ canonical }).
+import "./xano/index.js";
+import { loginQuery, meQuery, type AuthTokenResponse } from "@xano-sdk/auth";
+import type { InferInput, InferResponse } from "@xano/sdk";
+
+type LoginBody = InferInput<typeof loginQuery>;      // { email?: string; password?: string }
+type LoginOut  = InferResponse<typeof loginQuery>;   // AuthTokenResponse
+type MeOut     = InferResponse<typeof meQuery>;      // PublicUser | null
+
+const BASE = "https://your-instance.xano.io";
+
+const res = await fetch(BASE + loginQuery.getPath(), {
+  method: loginQuery.verb,                            // "POST"
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password } satisfies LoginBody),
+});
+const { authToken }: LoginOut = await res.json();
+```
+
+`signup`/`login` declare `responseShape: AuthTokenResponse` because the token is
+minted by a statement (opaque to the static walk); a declared shape overrides
+derivation and is not cross-checked against the stack, so those two are a
+hand-maintained contract. `meQuery` declares **nothing** — the SDK derives
+`PublicUser | null` from its stack, narrowing the `db.get` to the columns in
+`PUBLIC_USER_FIELDS` and carrying that statement's miss-to-null. The `| null` is
+the faithful-port quirk below surfacing in the type, not an oversight: callers
+are forced to handle a token whose user row is gone. Do not add a
+`responseShape` to `meQuery` — it would only let the declaration drift from the
+`output` list.
+
+**`getPath()` needs a canonical.** It builds `/api:<canonical>/<name>`, and by
+default this package pins none (identity is the consumer's lock). A canonical
+can't be minted on demand — it must be unique per instance — so a **bare
+`getPath()` throws** unless one is supplied. Preferred: pin it at registration,
+`registerAuth(workspace("my-app"), { canonical: "authn" })`, which makes the
+deployed path and the client-derived path one value and needs no lock in the
+browser (an in-code canonical beats the lock; it must match `[A-Za-z0-9_-]+`,
+and because the group def is process-wide, once pinned every later
+`registerAuth` must pass the same value — a different value *or* an omitted one
+throws, rather than retargeting or being silently inherited by a workspace
+registered earlier. Uniqueness across the instance's API groups is the caller's
+responsibility; a collision surfaces at Xano import). Otherwise pass it per call,
+`getPath({ canonical })`, or seed the lock at startup with
+`seedLockOverrides(readLockFile("./xano.lock"))` BEFORE importing any def module
+(defs bake references at import time, so seeding later is a silent no-op) —
+`readLockFile` comes from the Node-only `@xano/sdk/node` entry. `xanosdk export
+<entry>` and `xanosdk deploy` write `xano.lock` beside the entry by default, so the
+first run mints and freezes the canonical; commit the lock.
+
+**In a browser bundle, generate routes instead of importing defs.** Importing any
+def pulls in the SDK runtime (~267 kB minified / ~65 kB gzipped for the first
+def). `npx xanosdk routes xano/index.ts --emit xano/routes.gen.ts` writes the same
+verbs and paths as plain data that imports nothing, still compile-checked; keep
+the defs for `import type` only.
+
+Cherry-pick individual defs instead of `registerAuth` for granular control; keep
+each def's dependencies together (queries need `userTable`; `createEventLogFn`
+needs `eventLogTable`). Never register a def twice.
+
+## Constraints for agents (read before using)
+
+- **Authentication, not authorization — this is not the RBAC answer.** The
+  package mints and verifies tokens; it ships no permission checks and no route
+  guards. `userTable` carries a `role` enum (`admin` | `member`, set to
+  `"member"` on signup) and `auth/me` returns it, but nothing here enforces it,
+  and `create_auth_token` is called with empty `extras`, so the role is **not**
+  on the token — `auth("role")` resolves to nothing. Enforce roles with the
+  SDK's `guard.role`: in a query whose `auth` is `userTable`, spread
+  `...guard.role(userTable, "admin")` into the stack. It loads the caller's row by
+  `auth("id")`, rejects a missing row (401), then checks `role` (403). Do not
+  hand-roll a `db.get` + `precondition` on `caller.role`: drilling into a missing
+  row is a 500, not a denial. Do not adopt this package expecting authorization
+  to come with it.
+- **`userTable` is this package's auth table** (`auth: true`), and `auth/me`
+  names it directly (the SDK binds a query's `auth` to a table def, not `true`). A
+  consumer may register their own additional `auth: true` table; these endpoints
+  still authenticate against `user`.
+- **Call `registerAuth` at most once per `Xano` instance** — it throws otherwise.
+- **Request history is OFF by default**, unlike the engine (whose queries
+  inherit it ON). History records the request body, so an inheriting
+  `auth/signup`/`auth/login` would store the plaintext password and the minted
+  24h non-revokable token. `registerAuth` sets it `false` on the Authentication
+  group and the three queries inherit that. Opt back in for local debugging with
+  `registerAuth(xano, { history: true | <depth> | "all" })`. Process-wide, like
+  `canonical`: a later call that would change it throws. Do not tell a user to
+  mutate `authenticationGroup.history` — it is only needed on the cherry-pick
+  path, and a value disagreeing with the `registerAuth` call is an error.
+- **This is a close port of Xano's quick-start template**; its quirks are
+  preserved on purpose, except the two credential leaks fixed in
+  [xanots/sdk#10](https://github.com/xanots/sdk/issues/10) (request history
+  above, and `event_log.metadata` below). Notably:
+  - `event_log.metadata` records a **redacted** user — the `PUBLIC_USER_FIELDS`
+    projection, no password hash. (The template passed the whole row; on
+    `auth/login` that row carries the hash, since `check_password` needs it.)
+    `event_log` is still user data — treat it like `user`.
+  - Every endpoint (including the `auth/me` GET) writes an `event_log` row; the
+    table grows unbounded with no pruning.
+  - A valid token for a deleted user → `auth/me` yields no user. Typed
+    `PublicUser | null`; the runtime outcome is most likely a 500 (the stack
+    drills `user.id` out of a null `db.get`), not a 200 with a null body.
+  - `password` is taken as `input.text()`, never `input.password()` — the column
+    hashes on write, so an input-level hash would double-hash and break
+    `check_password`. Do not "tighten" it.
+  - Tokens live 24h with no refresh or revocation.
+- **Identity is the consumer's lock, not this package.** Commit `xano.lock` to
+  keep guids and the API URL stable across re-imports.
+
+## Docs
+
+- [README.md](README.md): full endpoint reference, table shapes, and the complete
+  "read before production" behavior notes.
+- [AGENTS.md](AGENTS.md): the conventions this package holds itself to — the
+  pattern to copy when building your own Xano SDK extension package.

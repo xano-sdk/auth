@@ -1,0 +1,2639 @@
+{
+  "app": "xano",
+  "version": "1.03",
+  "type": "workspace",
+  "payload": {
+    "partial": false,
+    "workspace": {
+      "name": "xts-auth-golden",
+      "description": "",
+      "canonical": "",
+      "use_xdo": false,
+      "preferences": {
+        "allow_push": false,
+        "track_performance": true,
+        "use_internal_docs": false
+      },
+      "swagger": false,
+      "env": [],
+      "settings": {
+        "ai_enabled": false,
+        "ai_settings": {
+          "providers": {
+            "google": {
+              "model": "",
+              "api_key": ""
+            },
+            "openai": {
+              "model": "",
+              "api_key": ""
+            },
+            "anthropic": {
+              "model": "",
+              "api_key": ""
+            },
+            "azure-openai": {
+              "model": "",
+              "api_key": "",
+              "base_url": "",
+              "api_version": ""
+            }
+          },
+          "default_provider": "free"
+        },
+        "hide_xano_agent": false
+      },
+      "guid": "c276d3f7c74505fd4c4b9ac52fae6f24"
+    },
+    "dbo": [
+      {
+        "name": "user",
+        "description": "Stores user information and allows the user to authenticate  against",
+        "docs": "",
+        "auth": true,
+        "install": false,
+        "schema": [
+          {
+            "name": "id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "created_at",
+            "type": "epochms",
+            "_xsid": "",
+            "nullable": false,
+            "default": "now",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "private",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "_xsid": "",
+            "nullable": true,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              },
+              {
+                "name": "lower",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "password",
+            "type": "password",
+            "_xsid": "",
+            "nullable": true,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "internal",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "min",
+                "disabled": false,
+                "arg": [
+                  8
+                ]
+              },
+              {
+                "name": "minAlpha",
+                "disabled": false,
+                "arg": [
+                  1
+                ]
+              },
+              {
+                "name": "minDigit",
+                "disabled": false,
+                "arg": [
+                  1
+                ]
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "account_id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "@",
+                "disabled": false,
+                "arg": [
+                  "dbo=f2f78af06c7c59b550823db5edae97bc"
+                ]
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Reference to the company the user belongs to."
+          },
+          {
+            "name": "role",
+            "type": "enum",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [
+              "admin",
+              "member"
+            ],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "The role of the user within their company (e.g., 'admin', 'member')."
+          },
+          {
+            "name": "password_reset",
+            "type": "obj",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [
+              {
+                "name": "token",
+                "type": "password",
+                "_xsid": "",
+                "nullable": false,
+                "default": "",
+                "merge": false,
+                "hidden": [],
+                "override": [],
+                "customize": {},
+                "required": false,
+                "values": [],
+                "mode": "",
+                "format": "",
+                "sensitive": false,
+                "list": {
+                  "min": "",
+                  "max": ""
+                },
+                "vector": {
+                  "size": 3
+                },
+                "access": "internal",
+                "style": {
+                  "type": "single"
+                },
+                "children": [],
+                "methods": [],
+                "market_item": {
+                  "id": 0,
+                  "version": 0,
+                  "guid": ""
+                },
+                "is_settings_registry": false,
+                "description": ""
+              },
+              {
+                "name": "expiration",
+                "type": "epochms",
+                "_xsid": "",
+                "nullable": true,
+                "default": "",
+                "merge": false,
+                "hidden": [],
+                "override": [],
+                "customize": {},
+                "required": false,
+                "values": [],
+                "mode": "",
+                "format": "",
+                "sensitive": false,
+                "list": {
+                  "min": "",
+                  "max": ""
+                },
+                "vector": {
+                  "size": 3
+                },
+                "access": "public",
+                "style": {
+                  "type": "single"
+                },
+                "children": [],
+                "methods": [],
+                "market_item": {
+                  "id": 0,
+                  "version": 0,
+                  "guid": ""
+                },
+                "is_settings_registry": false,
+                "description": ""
+              },
+              {
+                "name": "used",
+                "type": "bool",
+                "_xsid": "",
+                "nullable": false,
+                "default": "",
+                "merge": false,
+                "hidden": [],
+                "override": [],
+                "customize": {},
+                "required": false,
+                "values": [],
+                "mode": "",
+                "format": "",
+                "sensitive": false,
+                "list": {
+                  "min": "",
+                  "max": ""
+                },
+                "vector": {
+                  "size": 3
+                },
+                "access": "public",
+                "style": {
+                  "type": "single"
+                },
+                "children": [],
+                "methods": [],
+                "market_item": {
+                  "id": 0,
+                  "version": 0,
+                  "guid": ""
+                },
+                "is_settings_registry": false,
+                "description": ""
+              }
+            ],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          }
+        ],
+        "index": [
+          {
+            "name": "",
+            "lang": "",
+            "type": "primary",
+            "fields": [
+              {
+                "name": "id",
+                "op": ""
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          },
+          {
+            "name": "",
+            "lang": "",
+            "type": "btree",
+            "fields": [
+              {
+                "name": "created_at",
+                "op": "desc"
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          },
+          {
+            "name": "",
+            "lang": "",
+            "type": "btree|unique",
+            "fields": [
+              {
+                "name": "email",
+                "op": "asc"
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          }
+        ],
+        "autocomplete": [],
+        "external": {
+          "source": "",
+          "id": ""
+        },
+        "views": [],
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "sql_name": "",
+        "use_xdo": false,
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "guid": "efb558104909137dac95907814c26051",
+        "import": {
+          "mode": "standard"
+        }
+      },
+      {
+        "name": "account",
+        "description": "Stores information about accounts that users belong to",
+        "docs": "",
+        "auth": false,
+        "install": false,
+        "schema": [
+          {
+            "name": "id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "created_at",
+            "type": "epochms",
+            "_xsid": "",
+            "nullable": false,
+            "default": "now",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "private",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "The name of the company."
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "A brief description of the company."
+          },
+          {
+            "name": "location",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          }
+        ],
+        "index": [
+          {
+            "name": "",
+            "lang": "",
+            "type": "primary",
+            "fields": [
+              {
+                "name": "id",
+                "op": ""
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          },
+          {
+            "name": "",
+            "lang": "",
+            "type": "gin",
+            "fields": [
+              {
+                "name": "xdo",
+                "op": "jsonb_path_op"
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          },
+          {
+            "name": "",
+            "lang": "",
+            "type": "btree",
+            "fields": [
+              {
+                "name": "created_at",
+                "op": "desc"
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          }
+        ],
+        "autocomplete": [],
+        "external": {
+          "source": "",
+          "id": ""
+        },
+        "views": [],
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "sql_name": "",
+        "use_xdo": true,
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "guid": "f2f78af06c7c59b550823db5edae97bc",
+        "import": {
+          "mode": "standard"
+        }
+      },
+      {
+        "name": "event_log",
+        "description": "Stores logs of user activities and events within the application.",
+        "docs": "",
+        "auth": false,
+        "install": false,
+        "schema": [
+          {
+            "name": "id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "created_at",
+            "type": "epochms",
+            "_xsid": "",
+            "nullable": false,
+            "default": "now",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "private",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "user_id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "@",
+                "disabled": false,
+                "arg": [
+                  "dbo=efb558104909137dac95907814c26051"
+                ]
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Reference to the user who performed the action."
+          },
+          {
+            "name": "account_id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "@",
+                "disabled": false,
+                "arg": [
+                  "dbo=f2f78af06c7c59b550823db5edae97bc"
+                ]
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Reference to the company associated with the user event."
+          },
+          {
+            "name": "action",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "A description of the action performed by the user (e.g., 'login', 'created_invoice', 'updated_profile')."
+          },
+          {
+            "name": "metadata",
+            "type": "json",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Additional data related to the event, such as resource IDs, old/new values, or other contextual information."
+          }
+        ],
+        "index": [
+          {
+            "name": "",
+            "lang": "",
+            "type": "primary",
+            "fields": [
+              {
+                "name": "id",
+                "op": ""
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          },
+          {
+            "name": "",
+            "lang": "",
+            "type": "gin",
+            "fields": [
+              {
+                "name": "xdo",
+                "op": "jsonb_path_op"
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          },
+          {
+            "name": "",
+            "lang": "",
+            "type": "btree",
+            "fields": [
+              {
+                "name": "created_at",
+                "op": "desc"
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            }
+          }
+        ],
+        "autocomplete": [],
+        "external": {
+          "source": "",
+          "id": ""
+        },
+        "views": [],
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "sql_name": "",
+        "use_xdo": true,
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "guid": "e9148697952846994def7eb0a467d6cd",
+        "import": {
+          "mode": "standard"
+        }
+      }
+    ],
+    "addon": [],
+    "function": [
+      {
+        "name": "Getting Started Template/create_event_log",
+        "description": "Creates a record in the event log table",
+        "docs": "",
+        "workspace": {
+          "id": 0
+        },
+        "branch": {
+          "id": 0
+        },
+        "cache": {
+          "active": false,
+          "ttl": 3600,
+          "input": true,
+          "auth": true,
+          "datasource": true,
+          "ip": false,
+          "headers": [],
+          "env": []
+        },
+        "history": {
+          "inherit": true,
+          "enabled": false,
+          "limit": 100
+        },
+        "middleware": {
+          "pre_customize": false,
+          "post_customize": false,
+          "pre": [],
+          "post": []
+        },
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "input": [
+          {
+            "name": "user_id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Unique identifier for the user who performed the action."
+          },
+          {
+            "name": "account_id",
+            "type": "int",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Unique identifier for the account associated with the event."
+          },
+          {
+            "name": "action",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": true,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "A description of the action performed by the user (e.g., 'login', 'created_invoice')."
+          },
+          {
+            "name": "metadata",
+            "type": "json",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": "Additional data related to the event, such as resource IDs or old/new values."
+          }
+        ],
+        "result": [
+          {
+            "filters": [],
+            "name": "",
+            "tag": "const:null",
+            "value": "null",
+            "_xsid": "",
+            "disabled": false
+          }
+        ],
+        "run": [
+          {
+            "as": "new_log_entry",
+            "name": "mvp:dbo_add",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "created_at",
+                "value": "now",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "user_id",
+                "value": "user_id",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "account_id",
+                "value": "account_id",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "action",
+                "value": "action",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "metadata",
+                "value": "metadata",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "dbo": {
+                "id": "e9148697952846994def7eb0a467d6cd"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          }
+        ],
+        "test": [],
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "shared_workspace": {
+          "is_shared": false
+        },
+        "guid": "19bb274c20b194d7fa03ca4bafb3ac4c"
+      }
+    ],
+    "middleware": [],
+    "trigger": [],
+    "task": [],
+    "query": [
+      {
+        "name": "auth/signup",
+        "description": "Signup and retrieve an authentication token",
+        "docs": "",
+        "api_enabled": true,
+        "auth": false,
+        "response_type": "standard",
+        "verb": "POST",
+        "disabled": false,
+        "app": {
+          "id": "418bb3d99f5c721ab78c30d97d651e90"
+        },
+        "cache": {
+          "active": false,
+          "ttl": 3600,
+          "input": true,
+          "auth": true,
+          "datasource": true,
+          "ip": false,
+          "headers": [],
+          "env": []
+        },
+        "output": [],
+        "middleware": {
+          "pre_customize": false,
+          "post_customize": false,
+          "pre": [],
+          "post": []
+        },
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "history": {
+          "inherit": true,
+          "enabled": true,
+          "limit": 100
+        },
+        "input": [
+          {
+            "name": "name",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              },
+              {
+                "name": "lower",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "password",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          }
+        ],
+        "result": [
+          {
+            "filters": [],
+            "name": "authToken",
+            "tag": "var",
+            "value": "authToken",
+            "_xsid": "",
+            "disabled": false
+          },
+          {
+            "filters": [],
+            "name": "user_id",
+            "tag": "var",
+            "value": "user.id",
+            "_xsid": "",
+            "disabled": false
+          }
+        ],
+        "run": [
+          {
+            "as": "user",
+            "name": "mvp:dbo_getby",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "field_name",
+                "value": "email",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "field_value",
+                "value": "email",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "dbo": {
+                "id": "efb558104909137dac95907814c26051"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "",
+            "name": "mvp:precondition",
+            "_xsid": "",
+            "addon": [],
+            "input": [],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "expr": {
+                "expression": [
+                  {
+                    "type": "statement",
+                    "or": false,
+                    "group": {
+                      "expression": []
+                    },
+                    "statement": {
+                      "op": "=",
+                      "left": {
+                        "operand": "user",
+                        "tag": "var",
+                        "filters": []
+                      },
+                      "right": {
+                        "operand": "null",
+                        "tag": "const:null",
+                        "filters": []
+                      }
+                    }
+                  }
+                ]
+              },
+              "error_type": "accessdenied",
+              "error": {
+                "value": "This account is already in use.",
+                "tag": "const"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "user",
+            "name": "mvp:dbo_add",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "created_at",
+                "value": "now",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "name",
+                "value": "name",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "email",
+                "value": "email",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "password",
+                "value": "password",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "role",
+                "value": "member",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "dbo": {
+                "id": "efb558104909137dac95907814c26051"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "authToken",
+            "name": "mvp:create_auth",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "id",
+                "value": "user.id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "dbtable",
+                "value": "efb558104909137dac95907814c26051",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "extras",
+                "value": "{}",
+                "tag": "const:obj",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "expiration",
+                "value": "86400",
+                "tag": "const:int",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {},
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "event_log",
+            "name": "mvp:function",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "user_id",
+                "value": "user.id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "account_id",
+                "value": "0",
+                "tag": "const:int",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "action",
+                "value": "signup",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "metadata",
+                "value": "{ id: $var.user.id, created_at: $var.user.created_at, name: $var.user.name, email: $var.user.email, account_id: $var.user.account_id, role: $var.user.role }",
+                "tag": "const:expr2",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "function": {
+                "id": "19bb274c20b194d7fa03ca4bafb3ac4c"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          }
+        ],
+        "test": [],
+        "example": {},
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "guid": "ad508f9d25b77a54e415db5c45d0d8d0"
+      },
+      {
+        "name": "auth/login",
+        "description": "Login and retrieve an authentication token",
+        "docs": "",
+        "api_enabled": true,
+        "auth": false,
+        "response_type": "standard",
+        "verb": "POST",
+        "disabled": false,
+        "app": {
+          "id": "418bb3d99f5c721ab78c30d97d651e90"
+        },
+        "cache": {
+          "active": false,
+          "ttl": 3600,
+          "input": true,
+          "auth": true,
+          "datasource": true,
+          "ip": false,
+          "headers": [],
+          "env": []
+        },
+        "output": [],
+        "middleware": {
+          "pre_customize": false,
+          "post_customize": false,
+          "pre": [],
+          "post": []
+        },
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "history": {
+          "inherit": true,
+          "enabled": true,
+          "limit": 100
+        },
+        "input": [
+          {
+            "name": "email",
+            "type": "email",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [
+              {
+                "name": "trim",
+                "disabled": false,
+                "arg": []
+              },
+              {
+                "name": "lower",
+                "disabled": false,
+                "arg": []
+              }
+            ],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          },
+          {
+            "name": "password",
+            "type": "text",
+            "_xsid": "",
+            "nullable": false,
+            "default": "",
+            "merge": false,
+            "hidden": [],
+            "override": [],
+            "customize": {},
+            "required": false,
+            "values": [],
+            "mode": "",
+            "format": "",
+            "sensitive": false,
+            "list": {
+              "min": "",
+              "max": ""
+            },
+            "vector": {
+              "size": 3
+            },
+            "access": "public",
+            "style": {
+              "type": "single"
+            },
+            "children": [],
+            "methods": [],
+            "market_item": {
+              "id": 0,
+              "version": 0,
+              "guid": ""
+            },
+            "is_settings_registry": false,
+            "description": ""
+          }
+        ],
+        "result": [
+          {
+            "filters": [],
+            "name": "authToken",
+            "tag": "var",
+            "value": "authToken",
+            "_xsid": "",
+            "disabled": false
+          },
+          {
+            "filters": [],
+            "name": "user_id",
+            "tag": "var",
+            "value": "user.id",
+            "_xsid": "",
+            "disabled": false
+          }
+        ],
+        "run": [
+          {
+            "as": "user",
+            "name": "mvp:dbo_getby",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "field_name",
+                "value": "email",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "field_value",
+                "value": "email",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [
+                {
+                  "name": "id",
+                  "children": []
+                },
+                {
+                  "name": "created_at",
+                  "children": []
+                },
+                {
+                  "name": "name",
+                  "children": []
+                },
+                {
+                  "name": "email",
+                  "children": []
+                },
+                {
+                  "name": "password",
+                  "children": []
+                },
+                {
+                  "name": "account_id",
+                  "children": []
+                },
+                {
+                  "name": "role",
+                  "children": []
+                }
+              ],
+              "filters": [],
+              "customize": true
+            },
+            "context": {
+              "dbo": {
+                "id": "efb558104909137dac95907814c26051"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "",
+            "name": "mvp:precondition",
+            "_xsid": "",
+            "addon": [],
+            "input": [],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "expr": {
+                "expression": [
+                  {
+                    "type": "statement",
+                    "or": false,
+                    "group": {
+                      "expression": []
+                    },
+                    "statement": {
+                      "op": "!=",
+                      "left": {
+                        "operand": "user",
+                        "tag": "var",
+                        "filters": []
+                      },
+                      "right": {
+                        "operand": "null",
+                        "tag": "const:null",
+                        "filters": []
+                      }
+                    }
+                  }
+                ]
+              },
+              "error_type": "accessdenied",
+              "error": {
+                "value": "Invalid Credentials.",
+                "tag": "const"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "pass_result",
+            "name": "mvp:check_pass",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "text_password",
+                "value": "password",
+                "tag": "input",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "hash_password",
+                "value": "user.password",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {},
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "",
+            "name": "mvp:precondition",
+            "_xsid": "",
+            "addon": [],
+            "input": [],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "expr": {
+                "expression": [
+                  {
+                    "type": "statement",
+                    "or": false,
+                    "group": {
+                      "expression": []
+                    },
+                    "statement": {
+                      "op": "=",
+                      "left": {
+                        "operand": "pass_result",
+                        "tag": "var",
+                        "filters": []
+                      },
+                      "right": {
+                        "operand": "true",
+                        "tag": "const:bool",
+                        "filters": []
+                      }
+                    }
+                  }
+                ]
+              },
+              "error_type": "accessdenied",
+              "error": {
+                "value": "Invalid Credentials.",
+                "tag": "const"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "authToken",
+            "name": "mvp:create_auth",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "id",
+                "value": "user.id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "dbtable",
+                "value": "efb558104909137dac95907814c26051",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "extras",
+                "value": "{}",
+                "tag": "const:obj",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "expiration",
+                "value": "86400",
+                "tag": "const:int",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {},
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "event_log",
+            "name": "mvp:function",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "user_id",
+                "value": "user.id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "account_id",
+                "value": "user.account_id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "action",
+                "value": "login",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "metadata",
+                "value": "{ id: $var.user.id, created_at: $var.user.created_at, name: $var.user.name, email: $var.user.email, account_id: $var.user.account_id, role: $var.user.role }",
+                "tag": "const:expr2",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "function": {
+                "id": "19bb274c20b194d7fa03ca4bafb3ac4c"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          }
+        ],
+        "test": [],
+        "example": {},
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "guid": "35b7bbd1552626fbc8b7b6c1115c70df"
+      },
+      {
+        "name": "auth/me",
+        "description": "Get the user record belonging to the authentication token",
+        "docs": "",
+        "api_enabled": true,
+        "auth": "efb558104909137dac95907814c26051",
+        "response_type": "standard",
+        "verb": "GET",
+        "disabled": false,
+        "app": {
+          "id": "418bb3d99f5c721ab78c30d97d651e90"
+        },
+        "cache": {
+          "active": false,
+          "ttl": 3600,
+          "input": true,
+          "auth": true,
+          "datasource": true,
+          "ip": false,
+          "headers": [],
+          "env": []
+        },
+        "output": [],
+        "middleware": {
+          "pre_customize": false,
+          "post_customize": false,
+          "pre": [],
+          "post": []
+        },
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "history": {
+          "inherit": true,
+          "enabled": true,
+          "limit": 100
+        },
+        "input": [],
+        "result": [
+          {
+            "filters": [],
+            "name": "",
+            "tag": "var",
+            "value": "user",
+            "_xsid": "",
+            "disabled": false
+          }
+        ],
+        "run": [
+          {
+            "as": "user",
+            "name": "mvp:dbo_getby",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "field_name",
+                "value": "id",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "field_value",
+                "value": "id",
+                "tag": "auth",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [
+                {
+                  "name": "id",
+                  "children": []
+                },
+                {
+                  "name": "created_at",
+                  "children": []
+                },
+                {
+                  "name": "name",
+                  "children": []
+                },
+                {
+                  "name": "email",
+                  "children": []
+                },
+                {
+                  "name": "account_id",
+                  "children": []
+                },
+                {
+                  "name": "role",
+                  "children": []
+                }
+              ],
+              "filters": [],
+              "customize": true
+            },
+            "context": {
+              "dbo": {
+                "id": "efb558104909137dac95907814c26051"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
+            "as": "event_log",
+            "name": "mvp:function",
+            "_xsid": "",
+            "addon": [],
+            "input": [
+              {
+                "name": "user_id",
+                "value": "user.id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "account_id",
+                "value": "user.account_id",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "action",
+                "value": "get_auth_user",
+                "tag": "const",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              },
+              {
+                "name": "metadata",
+                "value": "user",
+                "tag": "var",
+                "filters": [],
+                "ignore": false,
+                "expand": false,
+                "children": []
+              }
+            ],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "function": {
+                "id": "19bb274c20b194d7fa03ca4bafb3ac4c"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          }
+        ],
+        "test": [],
+        "example": {},
+        "market_item": {
+          "id": 0,
+          "version": 0,
+          "guid": ""
+        },
+        "guid": "8e64176a70b122ffed0ce68ceed6b9ce"
+      }
+    ],
+    "tool": [],
+    "prompt": [],
+    "resource": [],
+    "toolset": [],
+    "app": [
+      {
+        "name": "Authentication",
+        "description": "This group provides endpoints for user login, signup, and reset password, returning authentication tokens and user records.",
+        "canonical": "",
+        "swagger": false,
+        "api_group_enabled": true,
+        "docs": "",
+        "documentation": {
+          "require_token": false,
+          "token": ""
+        },
+        "middleware": {
+          "pre_customize": false,
+          "post_customize": false,
+          "pre": [],
+          "post": []
+        },
+        "history": {
+          "inherit": false,
+          "query_enabled": false,
+          "query_limit": 100
+        },
+        "tag": [
+          {
+            "tag": "xano:quick-start"
+          }
+        ],
+        "cors": {
+          "mode": "default",
+          "allowOrigins": [],
+          "allowHeaders": [],
+          "allowCredentials": false,
+          "maxAge": 0,
+          "allowMethods": {
+            "delete": false,
+            "get": false,
+            "head": false,
+            "patch": false,
+            "post": false,
+            "put": false
+          }
+        },
+        "guid": "418bb3d99f5c721ab78c30d97d651e90"
+      }
+    ],
+    "knowledge": [],
+    "knowledge_file": [],
+    "realtime_server": [],
+    "channel": [],
+    "message": [],
+    "microservice": [],
+    "vault": [],
+    "market_item": [],
+    "run_install": [],
+    "action_package_install": [],
+    "env": [],
+    "workflow_test": [],
+    "service": [],
+    "branch": []
+  },
+  "sig": "BDyq3hpFV_z8mu1Sbu7RCqlWfxw."
+}
