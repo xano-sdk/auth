@@ -1,6 +1,6 @@
 {
   "name": "@xano-sdk/auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plug-and-play Xano authentication (signup/login/me + user, account, event_log tables) as typed Xano SDK defs. Authentication only - no roles, permissions, or route guards.",
   "type": "module",
   "license": "MIT",
