@@ -86,8 +86,8 @@ Run `npm run typecheck && npm run lint && npm test` before committing.
   encoding change in a later SDK arriving as a deliberate bump in this repo
   rather than as a golden-test failure traceable to no commit. Only the *peer*
   range spans versions.
-  **The two numbers are allowed to differ, and usually should.** The dev pin is
-  "what CI proved this release against" and moves on every SDK bump. The peer
+  **The two numbers are allowed to differ, and usually should.** The dev pin, currently
+  `1.0.19`, is "what CI proved this release against" and moves on every SDK bump. The peer
   floor is "the oldest SDK this package still means the same thing on" —
   currently 1.0.16, because `auth/me` accepts a warning code older SDKs refuse
   at export. Four things can set it: that; a load-bearing *type* (`db.get`'s
@@ -203,8 +203,9 @@ Lockstep with the peer. For each SDK bump:
    `README.md`, and `llms.txt` all quote. Confirm the version below the
    candidate floor fails, or the number is a guess. The golden test tracks the
    *encoding*, not the version, so it passes on every SDK that encodes
-   identically — **currently `>=1.0.0`**, the peer floor itself. Below the floor
-   is unsupported and out of scope. That boundary is a fact about the *fixture*,
+   identically — **currently proven from `>=1.0.16`**, the peer floor itself: an
+   older SDK refuses `auth/me`'s warning code. Below the floor is unsupported
+   and out of scope. That boundary is a fact about the *fixture*,
    so re-establish it whenever you regenerate rather than copying the number
    forward. Treat a failure anywhere else as real drift and find out why; never
    wave one off as "wrong version".
