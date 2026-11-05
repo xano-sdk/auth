@@ -31,6 +31,7 @@ npm run build       # tsup → dist/ (esm + d.ts)
 npm run typecheck   # tsc --noEmit
 npm run lint        # eslint .
 npm test            # tsc --noEmit && vitest run (type-level tests need the typecheck)
+npm run test:live   # deploy to a local Xano engine, then sign up, log in and read auth/me over HTTP
 ```
 
 Run `npm run typecheck && npm run lint && npm test` before committing.
@@ -88,7 +89,8 @@ Run `npm run typecheck && npm run lint && npm test` before committing.
   **The two numbers are allowed to differ, and usually should.** The dev pin is
   "what CI proved this release against" and moves on every SDK bump. The peer
   floor is "the oldest SDK this package still means the same thing on" —
-  currently 1.0.0. Three things can set it: a load-bearing *type* (`db.get`'s
+  currently 1.0.16, because `auth/me` accepts a warning code older SDKs refuse
+  at export. Four things can set it: that; a load-bearing *type* (`db.get`'s
   miss-to-null in `InferResponse`); an *encoding* boundary (the golden fixture
   starts matching there); and an SDK API the *shipped docs* tell consumers to use
   (`guard.role`, in the README's and llms.txt's role-check guidance). The highest
@@ -99,7 +101,7 @@ Run `npm run typecheck && npm run lint && npm test` before committing.
   raising it forces an upgrade that buys them nothing. Deciding requires reading
   the SDK diff, not just watching the suite go green: a patch release that
   changes nothing this package touches moves the dev pin alone.
-  **The ceiling is the SDK's next major** — the range is `>=1.0.0 <2.0.0`. A
+  **The ceiling is the SDK's next major** — the range is `>=1.0.16 <2.0.0`. A
   major is where the SDK may change what the defs encode to, so this package
   claims nothing past it. Without the cap, npm resolves a new major against this
   package and the golden test — which only ever runs against the *installed*

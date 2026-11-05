@@ -21,16 +21,16 @@ to `registerAuth` — otherwise identity comes from the consuming project's
 npm install @xano-sdk/auth @xano/sdk
 ```
 
-`@xano/sdk` is a `>=1.0.0 <2.0.0` peer dependency — install the current stable
-release. Built and tested against 1.0.0. The golden-bundle test in this package
+`@xano/sdk` is a `>=1.0.16 <2.0.0` peer dependency — install the current stable
+release. Built and tested against 1.0.19. The golden-bundle test in this package
 is the peer-drift tripwire: if an SDK upgrade changes encoding, it fails here
 before consumers are affected (for the installed version — the rest of the range
 is declared, not CI-verified).
 
-The floor is the highest of three requirements: the golden bundle, which the
+The floor is the highest of four requirements: the golden bundle, which the
 committed fixture matches from the floor up; the `guard.role` the role-check
-guidance below relies on; and the `db.get` miss-to-null that `auth/me`'s derived
-response type needs. The ceiling is the SDK's next major, since any major may
+guidance below relies on; the `db.get` miss-to-null that `auth/me`'s derived
+response type needs; and the warning code `auth/me` accepts, which older SDKs refuse. The ceiling is the SDK's next major, since any major may
 change what the defs encode to. Below the floor is unsupported, and a
 golden-bundle failure anywhere else is real drift.
 

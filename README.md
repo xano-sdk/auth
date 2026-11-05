@@ -51,8 +51,8 @@ walks through it.
 npm install @xano-sdk/auth @xano/sdk
 ```
 
-`@xano/sdk` is a peer dependency with the range `>=1.0.0 <2.0.0`; install the
-current stable release. This package is built and tested against **1.0.0**. See
+`@xano/sdk` is a peer dependency with the range `>=1.0.16 <2.0.0`; install the
+current stable release. This package is built and tested against **1.0.19**. See
 [Versioning and compatibility](#versioning-and-compatibility) for what the range
 does and does not guarantee.
 
@@ -436,11 +436,11 @@ change can reach you.
 
 Two SDK versions matter:
 
-- **The tested version, 1.0.0**, is the `devDependencies` pin: the version the
+- **The tested version, 1.0.19**, is the `devDependencies` pin: the version the
   committed golden fixture was generated against, and the only one the suite ever
   encodes against. It moves with `@xano-sdk/auth` releases, and only to a version
   this package has been rebuilt and retested against.
-- **The peer range, `>=1.0.0 <2.0.0`**, is what you can install against. The rest
+- **The peer range, `>=1.0.16 <2.0.0`**, is what you can install against. The rest
   of the range is supported by declaration rather than verified in CI, because
   the golden test only exercises the installed version. The fixture matches every
   SDK from the floor up, and any failure inside the range is real drift.
@@ -454,6 +454,8 @@ highest of:
 - **A load-bearing type**: `auth/me`'s response is derived from its stack, which
   needs the SDK's miss-to-null handling for `db.get`. Without it,
   `InferResponse<typeof meQuery>` silently loses its `| null`.
+- **An accepted warning**: `auth/me` accepts a warning code the SDK only knows
+  from 1.0.16. An older SDK refuses the code at export.
 
 Versions below the floor are unsupported. The floor moves only when one of those
 three does.

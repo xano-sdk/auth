@@ -32,7 +32,7 @@ describe("row types", () => {
     expectTypeOf<User>().toEqualTypeOf<InferRow<typeof userTable>>();
     expectTypeOf<User>().toHaveProperty("password");
     expectTypeOf<User["id"]>().toEqualTypeOf<number>();
-    expectTypeOf<User["role"]>().toEqualTypeOf<"admin" | "member">();
+    expectTypeOf<User["role"]>().toEqualTypeOf<"admin" | "member" | "">();
   });
 
   it("PublicUser is exactly what auth/me's stack projects", () => {

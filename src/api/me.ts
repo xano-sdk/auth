@@ -32,6 +32,8 @@ export const meQuery = query({
   auth: userTable,
   description: "Get the user record belonging to the authentication token",
   tags: ["xano:quick-start"],
+  // The missing-row check above is left out on purpose, so this warning is accepted.
+  diagnostics: { allow: ["stack.drill-maybe-null"] },
   input: {},
   stack: [
     // Get the user record based on the auth ID
