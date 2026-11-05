@@ -1,26 +1,20 @@
 /**
- * GET `auth/me` — return the authenticated user's record. Ported 1:1 from the
- * quick-start template. Faithful-port quirks: the output list excludes
- * `password`; there is deliberately NO null-user precondition, so a valid token
- * whose user row was deleted is left to fall through the stack; and even this
+ * GET `auth/me` — return the authenticated user's record. Ported from the
+ * quick-start template; the output list excludes `password`, and even this
  * read endpoint writes an `event_log` row.
  *
- * The deleted-user path most likely errors rather than returning a null body.
- * `db.get` binds null on a miss, and the next statement drills `ref("user.id")`
- * into it — the SDK documents a dotted ref through a null base as a runtime
- * "Unable to locate var" (HTTP 500), not a null. Even past that,
- * `createEventLogFn`'s `user_id`/`account_id` inputs are `required: true`.
- * Still UNVERIFIED against a live instance, and it does not change the type:
- * the response stays `PublicUser | null`, so a caller cannot assume a row came
- * back. Do not "fix" the missing precondition (nor reach for
- * `ref(..., { safe: true })`) without a stated reason — the port's fidelity is
- * the point.
+ * A valid token whose user row was deleted answers 404. The port first left
+ * that to fall through, which drills `ref("user.id")` into the null `db.get`
+ * binds on a miss: a runtime "Unable to locate var" (HTTP 500). SDK 1.0.17's
+ * check (`stack.drill-maybe-null`) refuses it, which failed `xanosdk export
+ * --strict` in every project that installs this module, so the precondition
+ * is the stated reason to depart from the port.
  *
  * `auth` names the ported `user` table by def handle (the SDK takes the auth
  * table itself, not `true`), so it resolves to that table's guid no matter
  * how many other auth tables the consumer registers.
  */
-import { query, s, ref, auth, c } from "@xano/sdk";
+import { query, s, ref, auth, c, expr } from "@xano/sdk";
 import { userTable, PUBLIC_USER_FIELDS } from "../tables/user.js";
 import { createEventLogFn } from "../functions/create-event-log.js";
 import { authenticationGroup } from "./authentication-group.js";
@@ -43,6 +37,12 @@ export const meQuery = query({
       fieldValue: auth("id"),
       output: PUBLIC_USER_FIELDS,
       as: "user",
+    }),
+    // A token for a deleted user: 404, not a 500 from the drills below
+    s.precondition({
+      expr: expr(ref("user"), "!=", c.null()),
+      error_type: "notfound",
+      error: c.text("User not found."),
     }),
     // Create an event log for get user record
     s.function.run({

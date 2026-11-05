@@ -2501,6 +2501,54 @@
             "settings_registry": null
           },
           {
+            "as": "",
+            "name": "mvp:precondition",
+            "_xsid": "",
+            "addon": [],
+            "input": [],
+            "mocks": {},
+            "output": {
+              "items": [],
+              "filters": [],
+              "customize": false
+            },
+            "context": {
+              "expr": {
+                "expression": [
+                  {
+                    "type": "statement",
+                    "or": false,
+                    "group": {
+                      "expression": []
+                    },
+                    "statement": {
+                      "op": "!=",
+                      "left": {
+                        "operand": "user",
+                        "tag": "var",
+                        "filters": []
+                      },
+                      "right": {
+                        "operand": "null",
+                        "tag": "const:null",
+                        "filters": []
+                      }
+                    }
+                  }
+                ]
+              },
+              "error_type": "notfound",
+              "error": {
+                "value": "User not found.",
+                "tag": "const"
+              }
+            },
+            "runtime": null,
+            "disabled": false,
+            "description": "",
+            "settings_registry": null
+          },
+          {
             "as": "event_log",
             "name": "mvp:function",
             "_xsid": "",
@@ -2635,5 +2683,5 @@
     "service": [],
     "branch": []
   },
-  "sig": "BDyq3hpFV_z8mu1Sbu7RCqlWfxw."
+  "sig": "_0GvOnctAddUvF9EUBtfdzTHa68."
 }

@@ -192,13 +192,11 @@ describe("auth/me", () => {
     expect(get.output?.items.some((i) => i.name === "password")).toBe(false);
   });
 
-  it("has NO null-user precondition and logs the read", () => {
-    // Only the absence of a precondition is asserted here — the *observable*
-    // deleted-user outcome (null 200 vs. an error out of the event_log write,
-    // whose user_id/account_id inputs are required) is unverified against a live
-    // instance and deliberately not claimed. See the note in src/api/me.ts.
-    expect(run(q).map((s) => s.name)).toEqual(["mvp:dbo_getby", "mvp:function"]);
-    expect(inputEntry(run(q)[1]!, "action")?.value).toBe("get_auth_user");
+  it("answers a deleted user's token with a precondition before logging the read", () => {
+    // Without it, the event_log input drills `user.id` through the null
+    // `db.get` binds on a miss (a 500), and SDK 1.0.17's check refuses that.
+    expect(run(q).map((s) => s.name)).toEqual(["mvp:dbo_getby", "mvp:precondition", "mvp:function"]);
+    expect(inputEntry(run(q)[2]!, "action")?.value).toBe("get_auth_user");
   });
 
   it("responds with the bare user record (not an object wrapper)", () => {
