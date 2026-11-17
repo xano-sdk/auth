@@ -52,7 +52,7 @@ npm install @xano-sdk/auth @xano/sdk
 ```
 
 `@xano/sdk` is a peer dependency with the range `>=1.0.16 <2.0.0`; install the
-current stable release. This package is built and tested against **1.0.19**. See
+current stable release. This package is built and tested against **1.0.22**. See
 [Versioning and compatibility](#versioning-and-compatibility) for what the range
 does and does not guarantee.
 
@@ -436,7 +436,7 @@ change can reach you.
 
 Two SDK versions matter:
 
-- **The tested version, 1.0.19**, is the `devDependencies` pin: the version the
+- **The tested version, 1.0.22**, is the `devDependencies` pin: the version the
   committed golden fixture was generated against, and the only one the suite ever
   encodes against. It moves with `@xano-sdk/auth` releases, and only to a version
   this package has been rebuilt and retested against.
