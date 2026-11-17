@@ -87,7 +87,7 @@ Run `npm run typecheck && npm run lint && npm test` before committing.
   rather than as a golden-test failure traceable to no commit. Only the *peer*
   range spans versions.
   **The two numbers are allowed to differ, and usually should.** The dev pin, currently
-  `1.0.19`, is "what CI proved this release against" and moves on every SDK bump. The peer
+  `1.0.22`, is "what CI proved this release against" and moves on every SDK bump. The peer
   floor is "the oldest SDK this package still means the same thing on" —
   currently 1.0.16, because `auth/me` accepts a warning code older SDKs refuse
   at export. Four things can set it: that; a load-bearing *type* (`db.get`'s
